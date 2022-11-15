@@ -43,9 +43,9 @@ function buyStock(companyIndex) {
     let finalMsg;
     newAmount = prompt(`How many stocks of ${companies[companyIndex].name} would you like to buy?`);
     newAmount = validateInput(newAmount);
-    let notDecimal = (newAmount * 10) % 10;
+    let Decimal = (newAmount * 10) % 10;
     
-    if (notDecimal != 0) {
+    if (Decimal) {
         alert('Invalid input!');
         throw "INVALID_INPUT";
     };
