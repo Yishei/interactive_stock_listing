@@ -14,19 +14,35 @@ function generateTable() {
         createAndAppendTd(trElement, numberFormat(company.amount));
         createAndAppendTd(trElement, currencyFormat(company.value))
         
-
+        // button to buy stocks.
         let buttonTd = document.createElement('td');
-        let btn = document.createElement('button');
-        buttonTd.append(btn);
+        let btn1 = document.createElement('button');
+        btn1.id = "buy";
+        buttonTd.append(btn1);
 
-        btn.innerText = company.amount ? 'Buy More' : 'Buy';
+        btn1.innerText = company.amount ? 'Buy More' : 'Buy';
 
-        btn.addEventListener('click', function () {
+        btn1.addEventListener('click', function () {
             buyStock(i);
         });
 
         trElement.append(buttonTd);
+        
+        // button to remove a stock from the list.
+        let removeBtnTd = document.createElement('td');
+        let btn2 = document.createElement('button');
+        btn2.id ="remove";
+        removeBtnTd.append(btn2);
+
+        btn2.innerText = `Remove ${company.name}`;
+
+        btn2.addEventListener('click', function() {
+            removeItem(i);
+        })
+
+        trElement.append(removeBtnTd);
         tableBodyElement.append(trElement);
+        
     };
     // make a total row.
     let totalTr = document.createElement('tr');
@@ -35,6 +51,7 @@ function generateTable() {
     createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, currencyFormat(totalValue));
+    createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, '');
 
     tableBodyElement.append(totalTr);
@@ -63,7 +80,7 @@ function buyStock(index) {
         throw "INVALID_INPUT";
     };
     total = companies[index].price * newAmount;
-    deposit = prompt("your total is" + currencyFormat(total) +",\nplease deposit.");
+    deposit = prompt("your total is " + currencyFormat(total) +",\nplease deposit.");
     deposit = validateInput(deposit);
     greater = (deposit >= total);
 
@@ -84,6 +101,11 @@ function buyStock(index) {
     generateTable();
 
 };
+
+function removeItem(index) {
+    companies.splice(index, 1);
+    generateTable();
+}
 
 // function to turn Input to number and validate.
 function validateInput(answer) {
