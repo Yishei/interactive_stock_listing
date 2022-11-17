@@ -9,11 +9,11 @@ function generateTable() {
         
         totalValue += company.value;
         let trElement = document.createElement('tr');
-        console.log(typeof(displayValue) );
         createAndAppendTd(trElement, company.ticker);
         createAndAppendTd(trElement, company.price);
-        createAndAppendTd(trElement, Intl.NumberFormat('en-US', { maximumSignificantDigits: 3}).format(company.amount));
-        createAndAppendTd(trElement, Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(company.value));
+        createAndAppendTd(trElement, numberFormat(company.amount));
+        createAndAppendTd(trElement, currencyFormat(company.value))
+        
 
         let buttonTd = document.createElement('td');
         let btn = document.createElement('button');
@@ -34,7 +34,7 @@ function generateTable() {
     createAndAppendTd(totalTr, 'Total Value');
     createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, '');
-    createAndAppendTd(totalTr, Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(totalValue));
+    createAndAppendTd(totalTr, currencyFormat(totalValue));
     createAndAppendTd(totalTr, '');
 
     tableBodyElement.append(totalTr);
@@ -48,37 +48,36 @@ function createAndAppendTd(trElement, innerText) {
 };
 
 // function to handle the Button event.
-function buyStock(companyIndex) {
+function buyStock(index) {
     let newAmount;
-    let total;
-    let dieposit;
     let greater;
+    let isDecimal;
+    let total;
     let finalMsg;
-    newAmount = prompt(`How many stocks of ${companies[companyIndex].name} would you like to buy?`);
+    newAmount = prompt(`How many stocks of ${companies[index].name} would you like to buy?`);
     newAmount = validateInput(newAmount);
-    let Decimal = (newAmount * 10) % 10;
+    isDecimal = (newAmount * 10) % 10;
     
-    if (Decimal) {
+    if (isDecimal) {
         alert('Invalid input!');
         throw "INVALID_INPUT";
     };
-    total = companies[companyIndex].price * newAmount;
-    dieposit = prompt(`your total is ${Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(total)},
-    please deposit.`);
-    dieposit = validateInput(dieposit);
-    greater = dieposit >= total;
+    total = companies[index].price * newAmount;
+    deposit = prompt("your total is" + currencyFormat(total) +",\nplease deposit.");
+    deposit = validateInput(deposit);
+    greater = (deposit >= total);
 
     if (greater) {
-        companies[companyIndex].amount += newAmount;
-        let plural = (companies[companyIndex].amount) > 1 ? 'stocks' : 'stock';
-        finalMsg = `you now own ${Intl.NumberFormat('en-US', { maximumSignificantDigits: 3}).format(companies[companyIndex].amount)}, ${companies[companyIndex].name} ${plural}.`;
-        if (dieposit > total) {
-            finalMsg += `\nhere you have ${Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(dieposit - total)} change.`
+        companies[index].amount += newAmount;
+        let plural = (companies[index].amount) > 1 ? 'stocks' : 'stock';
+        finalMsg = "You now own" +numberFormat(companies[index].amount) + ", " +companies[index].name + " " + plural + "!";
+        if (deposit > total) {
+            finalMsg += `\nhere you have ${currencyFormat(deposit - total)} change.`
         };
     }
     else {
-        let less = total - dieposit;
-        finalMsg = `$${Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(less)} is missing from the total,\nsorry maybe next time.`;
+        let less = total - deposit;
+        finalMsg = `${currencyFormat(less)} is missing from the total,\nsorry maybe next time.`;
     };
 
     alert(finalMsg);
@@ -86,7 +85,7 @@ function buyStock(companyIndex) {
 
 };
 
-// function to turn value to number and validate.
+// function to turn Input to number and validate.
 function validateInput(answer) {
     answer = Number(answer);
 
@@ -96,3 +95,24 @@ function validateInput(answer) {
     };
     return answer;
 };
+
+
+function currencyFormat(value) {
+    let niceValue;
+    if (value) {
+        niceValue = value = Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(value);
+    } else {
+        niceValue = "$0";
+    }
+    return niceValue
+}
+
+function numberFormat(value) {
+    let niceNumber;
+    if (value) {
+        niceNumber = value = Intl.NumberFormat('en-US', { maximumSignificantDigits: 3}).format(value);
+    } else {
+        niceNumber = 0;
+    }
+    return niceNumber
+}
