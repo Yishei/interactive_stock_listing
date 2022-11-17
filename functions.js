@@ -12,7 +12,10 @@ function generateTable() {
         createAndAppendTd(trElement, company.ticker);
         createAndAppendTd(trElement, company.price);
         createAndAppendTd(trElement, numberFormat(company.amount));
-        createAndAppendTd(trElement, currencyFormat(company.value))
+        createAndAppendTd(trElement, currencyFormat(company.value));
+        let pic = document.createElement('img');
+        pic.src = company.logo;
+        trElement.append(pic);
         
         // button to buy stocks.
         let buttonTd = document.createElement('td');
@@ -137,4 +140,6 @@ function numberFormat(value) {
         niceNumber = 0;
     }
     return niceNumber
-}
+};
+
+
