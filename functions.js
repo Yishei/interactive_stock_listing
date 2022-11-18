@@ -1,6 +1,7 @@
 // function to create a table for the companies in the companies list.
 function generateTable() {
     let totalValue = 0;
+    let totalStocks = 0;
     let tableBodyElement = document.getElementById('tb');
     tableBodyElement.innerHTML = null;
     for (let i = 0; i < companies.length; i++) {
@@ -8,6 +9,7 @@ function generateTable() {
         company.value = Number(company.price * company.amount);
         
         totalValue += company.value;
+        totalStocks+= company.amount;
         let trElement = document.createElement('tr');
         createAndAppendTd(trElement, company.ticker);
         createAndAppendTd(trElement, company.price);
@@ -34,7 +36,7 @@ function generateTable() {
         btn2.id ="remove";
         removeBtnTd.append(btn2);
 
-        btn2.innerText = `Remove ${company.name}`;
+        btn2.innerText = `Remove\n${company.name}`;
 
         btn2.addEventListener('click', function() {
             removeItem(i);
@@ -49,7 +51,7 @@ function generateTable() {
     totalTr.id = "totalRow";
     createAndAppendTd(totalTr, 'Total Value');
     createAndAppendTd(totalTr, '');
-    createAndAppendTd(totalTr, '');
+    createAndAppendTd(totalTr, numberFormat(totalStocks));
     createAndAppendTd(totalTr, currencyFormat(totalValue));
     createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, '');
@@ -87,7 +89,7 @@ function buyStock(index) {
     if (greater) {
         companies[index].amount += newAmount;
         let plural = (companies[index].amount) > 1 ? 'stocks' : 'stock';
-        finalMsg = "You now own" +numberFormat(companies[index].amount) + ", " +companies[index].name + " " + plural + "!";
+        finalMsg = "You now own " +numberFormat(companies[index].amount) + ", " +companies[index].name + " " + plural + "!";
         if (deposit > total) {
             finalMsg += `\nhere you have ${currencyFormat(deposit - total)} change.`
         };
