@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Meshimer - Access Restricted</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="//meshimer.com/newbp/images/favicon.png" rel="icon" type="image/png" />
+<link href="//meshimer.com/newbp/Blockpage.css" rel="stylesheet">
+<link href="//meshimer.com/newbp/index.css" rel="stylesheet">
+<script type="text/javascript" src="//meshimer.com/newbp/validator.js"></script>
+</head>
+<body>
+<div id="container">
+<div id="wb_SubmitForm">
+<form name="WLRForm" method="post" onsubmit="return validate_form(this)" action="//meshimer.com/BlockPage/wl_request.aspx">
+<input id="req_type" name="req_type" type="hidden" />
+<input name="URL" type="hidden" value="http://www.facebook.com/jpmorganchase/" />
+<input name="REASON" type="hidden" value="matches glob .facebook.com" />
+<input name="USER" type="hidden" value="yishei" />
+<input name="IP" type="hidden" value="192.168.1.9" />
+<input name="RuleName" type="hidden" value="Global Black List 2" />
+<input name="PolicyName" type="hidden" value="Office Category Policy" />
+<input name="UserIDSent" type="hidden" value=14487 />
+<input name="GroupName" type="hidden" value="Office" />
+<input id="ref" name="Referrer" type="hidden" value="" />
+<div id="Top_Banner"><span></span></div>
+<div id="wb_Logo">
+<a href="http://meshimer.com">
+<img src="//meshimer.com/newbp/images/logo-new.png" id="Logo" alt=""></a></div>
+<div id="Header"><span></span></div>
+<div id="wb_HeaderText">
+<span style="color:#FFFFFF;">ACCESS TO THIS PAGE IS RESTRICTED AT THIS TIME</span></div>
+<div id="wb_BlockDetails">
+<span style="color:#000000;font-family:'Proxima Nova Lt';font-size:16px;">
+<strong>User: </strong>yishei
+<br><strong>URL:&nbsp;</strong><a href="http://www.facebook.com/jpmorganchase/" ><script type="text/javascript">if ("http://www.facebook.com/jpmorganchase/".length >= 50) {document.write("http://www.facebook.com/jpmorganchase/".substring(0,50) + "...")} else {document.write("http://www.facebook.com/jpmorganchase/")};</script></a>
+<br><strong>IP:&nbsp;</strong><script type="text/javascript">if ("192.168.1.9".length >= 30) {document.write("192.168.1.9".substring(0,30) + "...")} else {document.write("192.168.1.9")};</script>
+<br><strong>Block Reason: </strong><script type="text/javascript">if ("matches glob .facebook.com".length >= 45) {document.write("matches glob .facebook.com".substring(0,45) + "...")} else {document.write("matches glob .facebook.com")};</script></span></div>
+<hr id="LineBreak1">
+<div id="wb_RegulerRequestHeader">
+<span style="color:#000000;">You may request access to this site by submitting the form below</span></div>
+<select name="Duration" size="1" id="Duration">
+<option value="2 Hours">Select Duration</option>
+<option value="1 Day">Today Only</option>
+<option>Always</option>
+</select>
+<select name="Category" size="1" id="Category" style="display: none;">
+<option>Other</option>
+</select>
+<select name="UsageType" size="1" id="UsageType" style="display: none;">
+<option>Business</option>
+</select>
+<input id="email" type="email" name="Email" style="display: none;"></input>
+<textarea name="message" id="Message" rows="1" cols="30" maxlength="160" spellcheck="false" placeholder="Notes:"></textarea>
+<input type="submit" id="SubmitButton" name="SubmitButton" value="SUBMIT REQUEST" onclick="document.getElementById('req_type').value='reg'">
+<hr id="LineBreak2">
+<div id="wb_TemporaryRequestHeader">
+<span style="color:#000000;font-family:'Proxima Nova Lt';font-size:19px;">Temporarily open access to this page only<br></span><span style="color:#000000;font-family:'Proxima Nova Lt';font-size:17px;"><br></span><span style="color:#000000;font-family:'Proxima Nova Lt';font-size:16px;">This page will be allowed by our automated system for up to two hours</span></div>
+<input type="submit" id="TemporaryButton" name="TemporaryButton" value="TEMPORARY ACCESS" onclick="document.getElementById('req_type').value='urgent'">
+</form>
+</div>
+<div id="wb_MyIDForm">
+<form name="MYID" method="post" action="" enctype="text/plain" id="MyIDForm">
+<div id="MyID_TopBanner"><span></span></div>
+<div id="wb_MyID_Logo">
+<a href="http://meshimer.com"><img src="//meshimer.com/newbp/images/logo-new.png" id="MyID_Logo" alt=""></a></div>
+<div id="MyID_Header"><span>Your Meshimer User ID is</span></div>
+<textarea name="User" id="UserInfo" rows="1" cols="27" readonly spellcheck="false">yishei</textarea>
+<input type="button" id="CopyButton" onclick="copy_to_clipboard('UserInfo');return false;" name="" value="Copy to Clipboard">
+<div id="wb_MyID_Text">
+<span style="color:#000000;font-family:'Proxima Nova Rg';font-size:17px;">Please copy this information and provide to the support team</span></div>
+</form>
+</div>
+</div>
+</body>
+</html>
