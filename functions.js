@@ -5,49 +5,42 @@ function generateTable() {
     let tableBodyElement = document.getElementById('tb');
     tableBodyElement.innerHTML = null;
     for (let i = 0; i < companies.length; i++) {
-        var company = companies[i];
-        company.value = Number(company.price * company.amount);
-        
+        let company = companies[i];
+
+        company.value = company.price * company.amount;
         totalValue += company.value;
         totalStocks+= company.amount;
+
         let trElement = document.createElement('tr');
-        createAndAppendTd(trElement, company.ticker);
-        createAndAppendTd(trElement, company.price);
-        createAndAppendTd(trElement, numberFormat(company.amount));
-        createAndAppendTd(trElement, currencyFormat(company.value));
+
+        // create the logo on the table.
+        let picTd = document.createElement('td');
         let pic = document.createElement('img');
         pic.src = company.logo;
-        trElement.append(pic);
-        
-        // button to buy stocks.
-        let buttonTd = document.createElement('td');
-        let btn1 = document.createElement('button');
-        btn1.id = "buy";
-        buttonTd.append(btn1);
+        picTd.append(pic);
+        trElement.append(picTd);
 
+        // add the company Ticker, Price, and Value.
+        createAndAppendTd(trElement, company.ticker);
+        createAndAppendTd(trElement, currencyFormat(company.price));
+        createAndAppendTd(trElement, numberFormat(company.amount));
+        createAndAppendTd(trElement, currencyFormat(company.value));
+        
+        
+        // add a button to buy stocks.
+        let btn1 = btnTd_BtnAndAppand(trElement, 'buy');
         btn1.innerText = company.amount ? 'Buy More' : 'Buy';
-
         btn1.addEventListener('click', function () {
-            buyStock(i);
-        });
-
-        trElement.append(buttonTd);
+            buyStock(i)});
         
-        // button to remove a stock from the list.
-        let removeBtnTd = document.createElement('td');
-        let btn2 = document.createElement('button');
-        btn2.id ="remove";
-        removeBtnTd.append(btn2);
-
+        // add a button to remove a stock from the table\array.
+        let btn2 = btnTd_BtnAndAppand(trElement, 'remove');
         btn2.innerText = `Remove\n${company.name}`;
-
         btn2.addEventListener('click', function() {
             removeItem(i);
-        })
+        });
 
-        trElement.append(removeBtnTd);
         tableBodyElement.append(trElement);
-        
     };
     // make a total row.
     let totalTr = document.createElement('tr');
@@ -56,6 +49,7 @@ function generateTable() {
     createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, numberFormat(totalStocks));
     createAndAppendTd(totalTr, currencyFormat(totalValue));
+    createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, '');
 
@@ -144,4 +138,11 @@ function numberFormat(value) {
     return niceNumber
 };
 
-
+function btnTd_BtnAndAppand(trElement, id){
+    let buttonTd = document.createElement('td');
+    let btn = document.createElement('button');
+    btn.id = id;
+    buttonTd.append(btn);
+    trElement.append(buttonTd);
+    return btn
+};

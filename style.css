@@ -4,8 +4,10 @@
 }
 table {
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
+    left: 45%;
+    margin: 0px;
+    width: 830px;
 }
 
 th {
@@ -21,6 +23,8 @@ td {
     width: 100px;
     border-bottom: 1px solid #9999ff;
     text-align: center;
+    padding: 10px;
+    padding-bottom: 2px;
 }
 
 
@@ -59,4 +63,10 @@ td {
     font-weight: bold;
     background-color:#002966 ;
     color: white;
+}
+
+img {
+    width: 130px;
+    height: 75px;
+    padding: 0px;
 }
