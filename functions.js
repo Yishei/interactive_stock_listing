@@ -47,9 +47,9 @@ function generateTable() {
     totalTr.id = "totalRow";
     createAndAppendTd(totalTr, 'Total Value');
     createAndAppendTd(totalTr, '');
+    createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, numberFormat(totalStocks));
     createAndAppendTd(totalTr, currencyFormat(totalValue));
-    createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, '');
     createAndAppendTd(totalTr, '');
 
@@ -117,7 +117,7 @@ function validateInput(answer) {
     return answer;
 };
 
-
+// function to format currency to USD.
 function currencyFormat(value) {
     let niceValue;
     if (value) {
@@ -128,6 +128,7 @@ function currencyFormat(value) {
     return niceValue
 }
 
+// function to format amount.
 function numberFormat(value) {
     let niceNumber;
     if (value) {
@@ -138,6 +139,7 @@ function numberFormat(value) {
     return niceNumber
 };
 
+// fonction to add a botton and its TD to a TR and create an id for it.
 function btnTd_BtnAndAppand(trElement, id){
     let buttonTd = document.createElement('td');
     let btn = document.createElement('button');
@@ -146,3 +148,4 @@ function btnTd_BtnAndAppand(trElement, id){
     trElement.append(buttonTd);
     return btn
 };
+
