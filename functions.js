@@ -31,8 +31,8 @@ function generateTable() {
         let btn1 = btnTd_BtnAndAppand(trElement, 'buy');
         btn1.innerText = company.amount ? 'Buy More' : 'Buy';
         btn1.addEventListener('click', function () {
-            buyStock(i)});
-        
+            generateForm(i)});
+            
         // add a button to remove a stock from the table\array.
         let btn2 = btnTd_BtnAndAppand(trElement, 'remove');
         btn2.innerText = `Remove\n${company.name}`;
@@ -63,48 +63,12 @@ function createAndAppendTd(trElement, innerText) {
     trElement.append(tdElement);
 };
 
-// function to handle the Button event.
-function buyStock(index) {
-    let newAmount;
-    let greater;
-    let isDecimal;
-    let total;
-    let finalMsg;
-    newAmount = prompt(`How many stocks of ${companies[index].name} would you like to buy?`);
-    newAmount = validateInput(newAmount);
-    isDecimal = (newAmount * 10) % 10;
-    
-    if (isDecimal) {
-        alert('Invalid input!');
-        throw "INVALID_INPUT";
-    };
-    total = companies[index].price * newAmount;
-    deposit = prompt("your total is " + currencyFormat(total) +",\nplease deposit.");
-    deposit = validateInput(deposit);
-    greater = (deposit >= total);
-
-    if (greater) {
-        companies[index].amount += newAmount;
-        let plural = (companies[index].amount) > 1 ? 'stocks' : 'stock';
-        finalMsg = "You now own " +numberFormat(companies[index].amount) + ", " +companies[index].name + " " + plural + "!";
-        if (deposit > total) {
-            finalMsg += `\nhere you have ${currencyFormat(deposit - total)} change.`
-        };
-    }
-    else {
-        let less = total - deposit;
-        finalMsg = `${currencyFormat(less)} is missing from the total,\nsorry maybe next time.`;
-    };
-
-    alert(finalMsg);
-    generateTable();
-
-};
 
 function removeItem(index) {
+
     companies.splice(index, 1);
     generateTable();
-}
+};
 
 // function to turn Input to number and validate.
 function validateInput(answer) {
@@ -147,5 +111,128 @@ function btnTd_BtnAndAppand(trElement, id){
     buttonTd.append(btn);
     trElement.append(buttonTd);
     return btn
+};
+
+
+function generateForm(index) {
+    let i = index;
+    document.getElementById('table').style.display = 'none';
+    let form = document.getElementById('form');
+    form.style.display = 'block';
+    form.innerHTML = null;
+    let lable = document.createElement('label');
+    lable.for = 'qty';
+    lable.innerHTML = `How much stocs of ${companies[i].name} do you want to buy?`;
+    form.append(lable);
+
+    let logo = document.createElement('img');
+    logo.src = companies[i].logo;
+    form.append(logo);
+    let div1 = document.createElement('div');
+    form.append(div1);
+    let input1 = document.createElement('input');
+    input1.type = 'number';
+    input1.placeholder = 'Qty';
+    input1.name = 'qty';
+    input1.id = 'qty';
+    input1.required = true;
+    input1.addEventListener('input', function () {
+        let qty = document.getElementById('qty').value;
+        displayTotal(qty, i);
+    })
+    div1.append(input1);
+    let div2 = document.createElement('div');
+    form.append(div2);
+    let totalP = document.createElement('p');
+    totalP.id = 'totalMsg';
+    div2.append(totalP);
+    let input2 = document.createElement('input');
+    input2.type = 'number';
+    input2.placeholder = '$';
+    input2.name = 'diposit';
+    input2.id = 'deposit';
+    input2.required = true;
+    div2.append(input2);
+    let div3 = document.createElement('div');
+    form.append(div3);
+    let submitBtn = document.createElement('button');
+    submitBtn.type = 'button';
+    submitBtn.id = 'submitBtn';
+    submitBtn.innerHTML = "Submit";
+    submitBtn.addEventListener('click', function () {
+        submit(i);
+    })
+    div3.append(submitBtn);
+};
+
+
+function displayTotal(qty, index) {
+    let msg = document.getElementById('totalMsg');
+    if (((qty * 10) % 10) || qty <= 0) {
+        form.reset();
+        msg.innerHTML = "Please enter a Valid number"
+        msg.style.color = 'red';
+    } else {
+        let total = (companies[index].price * qty);
+        msg.innerHTML = `Your Total is ${currencyFormat(total)}`;
+        msg.style.color = 'black';
+    }
+
+};
+
+
+function submit(index) {
+    let i = index;
+    let form = document.getElementById('form');
+    let msg = document.getElementById('totalMsg');
+    let formData = new FormData(form);
+    let qty = formData.get('qty');
+    qty = Number(qty);
+    
+    let diposit = formData.get('diposit');
+    let price = companies[i].price;
+    let totalPrice = price * qty;
+    let totalQtysale;
+    let change;
+    if (diposit < totalPrice ) {
+        
+        if (diposit <= 0) {
+            msg.innerHTML = 'Please diposit a Valid amount';
+        } else {
+            totalQtysale = (diposit / price).toFixed();
+            msg.innerHTML = `With this amount you can anly buy ${numberFormat(totalQtysale)}`;
+            form.reset();
+        };
+    } else {
+        if (!companies[i].amount) {
+            companiesOwn.push(companies[i]);
+            console.table(companiesOwn);
+        }
+        companies[i].amount += qty;
+        change = (diposit == totalPrice ? 0 : (diposit - totalPrice));
+        finalMsg(qty, totalPrice, change, i);
+
+        generateTable();
+        form.reset();
+    };
+};
+
+
+function finalMsg(qty, total, change, index) {
+    let finaDiv = document.getElementById('finalSale');
+    document.getElementById('form').style.display = 'none';
+    finaDiv.style.display = 'block';
+    let msg =  `You bought ${numberFormat(qty)} stocks of ${companies[index].name}
+for the amount of ${currencyFormat(total)} and you have ${currencyFormat(change)} change!`;
+    let pElement = document.getElementById('finalSale');
+    pElement.innerHTML = msg;
+    let okBtn = document.createElement('button');
+    okBtn.innerHTML = "OK";
+    okBtn.id = 'ok';
+    okBtn.addEventListener('click', function(){
+        finaDiv.style.display = 'none';
+        document.getElementById('table').style.display = 'block';
+    });
+    finaDiv.append(okBtn);
 };
 

@@ -1,14 +1,14 @@
 // companies for the table.
-let companiesOnTable = [];
+let companiesOwn = [];
 
 // companies aval.
 let companies = [{
     name: 'Amazon.com',
     price: 96.63,
     value: 0,
-    amount:0,
+    amount: 0,
     ticker: 'AMZN',
-    logo:  './photos/AMZN.png',
+    logo: './photos/AMZN.png',
 }, {
     name: 'Apple Inc',
     price: 146.87,
@@ -88,69 +88,3 @@ let companies = [{
     logo: './photos/BAC.png',
 },];
 
-/*function showAddForm() {
-    document.getElementById('buyStocks').style.display = 'block'
-};
-
-
-
-function buyStockj(index) {
-    let newAmount;
-    let greater;
-    let isDecimal;
-    let total;
-    let finalMsg;
-    let divElement = document.getElementById('yishei');
-    let form = document.createElement('form');
-    form.name = 'buyStocks';
-    form.id = 'buyStocks';
-    let formLable = document.createElement('label');
-    form.append(formLable);
-    formLable.for = 'buyStocks';
-    formLable.innerText = `how much stocks of ${companies[index].name} do you whont to buy?`;
-    let input = document.createElement('input');
-    input.type = "number";
-    input.placeholder= "amount";
-    input.name= "amount";
-    input.required = true;
-    form.append(input);
-    let submitButton = document.createElement('button');
-    submitButton.id = 'submitBtn'
-    submitButton.innerText = "Submit";
-    submitButton.addEventListener('click', function() {
-        submitAmount(index)
-    });
-    form.append(submitButton);
-    divElement.append(form);
-};
-
-function submitAmount(index) {
-    
-    let formElement = document.getElementById('buyStocks');
-    let fd = new FormData (formElement);
-    let amount = fd.get('amount');
-    let total = companies[index].price * amount;
-    if (amount <= 0) {
-        alert('if you whant to sell pleses go to the sell button');
-        throw 'INVLID_INPUT';
-    } else {
-        document.getElementById('submitBtn').style.display = 'none';
-        let label = document.createElement('label');
-        label.for= 'deposit';
-        label.innerText = `your total is ${currencyFormat(total)} pleses diposit`;
-        formElement.append(label);
-        let deposit = document.createElement('input');
-        deposit.type= 'text';
-        deposit.name= 'deposit';
-        deposit.required = true;
-        formElement.append(deposit);
-        let submitBtn = document.createElement('button');
-        submitBtn.innerText ='Sumbit';
-        submitBtn.id = 'submitDeposit'
-        submitBtn.addEventListener('click', function() {
-            submitDiposit()
-        });
-        formElement.append(submitBtn);
-    }
-
-};*/

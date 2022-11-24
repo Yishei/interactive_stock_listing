@@ -1,6 +1,6 @@
 * {
     background-color: #e6f2ff;
-    padding: 20px;
+    padding: 5px;
 }
 table {
     border-collapse: collapse;
@@ -28,7 +28,7 @@ td {
 }
 
 
-#buy {
+#buy, #ok, #submitBtn {
     background-color: #002966;
     color: white;
     font-style: italic;
@@ -71,4 +71,26 @@ img {
     padding: 0px;
 }
 
+div {
+    border-color: gray;
+}
 
+h3 {
+    margin: 0px;
+    padding: 10px;
+}
+
+div #formDiv {
+    width: 560px;
+    padding: 10px;
+}
+
+input {
+    padding: 7px;
+}
+
+form > p {
+    padding: 5px;
+    width: 200px;
+    background-color: #002966;
+}
